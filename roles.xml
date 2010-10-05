@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<roles>
+	<role name='invalid' >
+		<view read='true' edit='true' delete='true' add='true'>home</view>
+		<view read='true' edit='true' delete='true' add='true'>login</view>
+		<view read='true' edit='true' delete='true' add='true'>signup</view>
+		<view read='true' edit='true' delete='true' add='true'>validate</view>
+		<view read='true' edit='true' delete='true' add='true'>forgot</view>
+	</role>
+	<role name='admin' >
+		<view read='true' edit='true' delete='true' add='true'>private</view>
+		<view read='true' edit='true' delete='true' add='true'>home</view>
+		<view read='true' edit='true' delete='true' add='true'>login</view>
+		<view read='true' edit='true' delete='true' add='true'>signup</view>
+		<view read='true' edit='true' delete='true' add='true'>forgot</view>
+		<view read='true' edit='true' delete='true' add='true'>validate</view>
+		<view read='true' edit='true' delete='true' add='true'>catalog</view>
+	      <view read='true' edit='true' delete='true' add='true'>catalog-value</view>
+		<view read='true' edit='true' delete='true' add='true'>change-password</view>
+	</role>
+</roles>

@@ -1,0 +1,37 @@
+html, body, ul, li, h1
+{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	text-align:left;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+.error{color: red;}
+#rightCenter
+{
+	margin-left:auto;
+	margin-right:auto;
+	font-size:16px;
+	width:1000px;
+	text-align:right;
+	height:30px;
+}
+#rightCenter li{display:inline; margin-left:20px;}
+#rightCenter li a{color:#FFFFFF;}
+#upBar
+{
+	padding:0;
+	margin:0;
+	display:inline-block;
+	background: #0CF no-repeat;
+	width: 100%;
+}
+#semiUpBar
+{
+	padding:0;
+	margin:-3px;
+	display:inline-block;
+	width:100%;
+}
+#default-content{margin-top:30px; margin-left:auto; margin-right:auto; width:1000px;}

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<views>
+	<view name="home" url="inicio.php" />
+	<view name="private" url="private.php"/>
+	<view name="signup" url="_user/registro.php" class="RegistroDelegate" />
+	<view name="validate" url="_user/validate.php"/>
+	<view name="login" url="_user/login.php"/>
+	<view name="forgot" url="_user/olvidarContrasena.php" class="ContrasenaDelegate"/>
+	<view name="change-password" url="_user/contrasenaCambio.php" class="ContrasenaDelegate" template="menu"/>
+	<view name="catalog-value" url="_catalog/catalogo_valor.php" class="CatalogDelegate">
+		<getter destination="valores">getRecursiva</getter>
+		<getter destination="cat_valores">getCatalogoValor</getter>
+		<getter destination="depende">getDepende</getter>
+		<getter destination="catalogos">getCatalogo</getter>
+		<getter destination="valores">getRecursiva</getter>
+		<getter destination="cat_valores">getCatalogoValor</getter>
+		<getter destination="depende">getDepende</getter>
+		<getter destination="catalogos">getCatalogo</getter>
+    </view>
+	<view name="catalog-new" url="_catalog/catalogoNew.php" class="CatalogDelegate"/>
+	<view name="catalog" url="_catalog/catalogo.php" class="CatalogDelegate">
+		<getter destination="catalogs">getCatalogo</getter>
+	</view>
+</views>
