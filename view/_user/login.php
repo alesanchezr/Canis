@@ -35,7 +35,7 @@
     if (errors > 0)
     {
 		$("#standardError").empty();
-		$("#standardError").show().append("Usuario o clave invalido");
+		$("#standardError").show().append("Invalid username or password");
         return false;
     }
 	else

@@ -86,3 +86,7 @@
 [2010/05/22 01:26:36] The view "catalog_value" has not been defined bindings.xml
 [2010/05/22 01:26:53] No se ha podido realizar la accion: select DISTINCT A.id,A.valor as nombreValor,C.name as nombreCatalogo from catalog_valor A, catalog_valor B, catalog C where (A.idDepende = B.id  and A.idCatalogo = C.id) or (A.idCatalogo = C.id) -> Table 'canis.catalog_valor' doesn't exist
 [2010/05/22 01:28:40] The view "catalog_value" has not been defined bindings.xml
+[2010/10/05 03:42:31] No se ha podido realizar la accion: SELECT u.status,u.id,u.locationId,u.password,r.name AS roleName FROM user u,role r WHERE (u.roleId = r.id) AND (u.email = "aalejo@gmail.com") -> Access denied for user 'SYSTEM'@'localhost' (using password: NO)
+[2010/10/05 03:45:41] No se ha podido realizar la accion: SELECT u.status,u.id,u.locationId,u.password,r.name AS roleName FROM user u,role r WHERE (u.roleId = r.id) AND (u.email = "aalejo@gmail.com") -> Access denied for user 'SYSTEM'@'localhost' (using password: NO)
+[2010/10/05 03:45:57] No se ha podido realizar la accion: SELECT u.status,u.id,u.locationId,u.password,r.name AS roleName FROM user u,role r WHERE (u.roleId = r.id) AND (u.email = "aalejo@gmail.com") -> Access denied for user 'SYSTEM'@'localhost' (using password: NO)
+[2010/10/05 03:48:22] No se ha podido realizar la accion: Access denied for user 'SYSTEM'@'localhost' (using password: NO)

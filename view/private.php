@@ -1,1 +1,1 @@
-Si logras ver esta pagina quiere decir que haz iniciado sesion
+If you see this page, then you have been successfully signed in

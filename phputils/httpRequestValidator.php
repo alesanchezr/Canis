@@ -162,10 +162,17 @@ class httpRequestValidator
 
 	function exect($query)
 	{
-		$result = mysql_query($query);
-
-		if($GLOBALS["debugMode"]) if(!$result) $this->errors->addError(ErrorManager::CANIS_FATAL,'No se ha podido realizar la accion: '.$query.' -> '.mysql_error());
-
+		$result = null;
+		try
+		{
+			$result = mysql_query($query);
+			if($GLOBALS["debugMode"]) if(!$result) $this->errors->addError(ErrorManager::CANIS_FATAL,'No se ha podido realizar la accion: '.$query.' -> '.mysql_error());
+		}
+		catch(Exception $e)
+		{
+			$this->errors->addError(ErrorManager::CANIS_FATAL,'No se ha podido realizar la accion: '.$e->getMessage());
+		}
+		
 		return $result;
 	}
 
