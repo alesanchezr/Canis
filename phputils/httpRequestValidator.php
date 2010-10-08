@@ -1,7 +1,5 @@
 <?php
 
-require_once("phputils/mysqlConexion.php");
-
 class httpRequestValidator
 {
 	var $errors;
@@ -158,22 +156,6 @@ class httpRequestValidator
 		}
 
 		return '';
-	}
-
-	function exect($query)
-	{
-		$result = null;
-		try
-		{
-			$result = mysql_query($query);
-			if($GLOBALS["debugMode"]) if(!$result) $this->errors->addError(ErrorManager::CANIS_FATAL,'No se ha podido realizar la accion: '.$query.' -> '.mysql_error());
-		}
-		catch(Exception $e)
-		{
-			$this->errors->addError(ErrorManager::CANIS_FATAL,'No se ha podido realizar la accion: '.$e->getMessage());
-		}
-		
-		return $result;
 	}
 
 

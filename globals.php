@@ -28,9 +28,9 @@ $GLOBALS["PENDING_VIEW"]    = "validate";
 
 /*--------THIS ARE THE MYSQL CONECTION DEFINITIONS----------*/
 //
-$GLOBALS["dbServer"]   = "";
-$GLOBALS["dbName"]     = "";
-$GLOBALS["dbUser"]     = "";
+$GLOBALS["dbServer"]   = "localhost";
+$GLOBALS["dbName"]     = "canis";
+$GLOBALS["dbUser"]     = "root";
 $GLOBALS["dbPassword"] = "";
 $GLOBALS["doctrineConnection"] = "";
 

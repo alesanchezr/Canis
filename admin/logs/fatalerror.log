@@ -90,3 +90,13 @@
 [2010/10/05 03:45:41] No se ha podido realizar la accion: SELECT u.status,u.id,u.locationId,u.password,r.name AS roleName FROM user u,role r WHERE (u.roleId = r.id) AND (u.email = "aalejo@gmail.com") -> Access denied for user 'SYSTEM'@'localhost' (using password: NO)
 [2010/10/05 03:45:57] No se ha podido realizar la accion: SELECT u.status,u.id,u.locationId,u.password,r.name AS roleName FROM user u,role r WHERE (u.roleId = r.id) AND (u.email = "aalejo@gmail.com") -> Access denied for user 'SYSTEM'@'localhost' (using password: NO)
 [2010/10/05 03:48:22] No se ha podido realizar la accion: Access denied for user 'SYSTEM'@'localhost' (using password: NO)
+[2010/10/08 04:54:18] No se ha podido realizar la accion: SELECT u.status,u.id,u.locationId,u.password,r.name AS roleName FROM user u,role r WHERE (u.roleId = r.id) AND (u.email = "aalejo@gmail.com") -> Access denied for user 'SYSTEM'@'localhost' (using password: NO)
+[2010/10/08 04:56:04] No se ha podido realizar la accion: SELECT u.status,u.id,u.locationId,u.password,r.name AS roleName FROM user u,role r WHERE (u.roleId = r.id) AND (u.email = "aalejo@gmail.com") -> Access denied for user 'SYSTEM'@'localhost' (using password: NO)
+[2010/10/08 04:56:05] No se ha podido realizar la accion: SELECT u.status,u.id,u.locationId,u.password,r.name AS roleName FROM user u,role r WHERE (u.roleId = r.id) AND (u.email = "aalejo@gmail.com") -> Access denied for user 'SYSTEM'@'localhost' (using password: NO)
+[2010/10/08 04:56:11] No se ha podido realizar la accion: SELECT u.status,u.id,u.locationId,u.password,r.name AS roleName FROM user u,role r WHERE (u.roleId = r.id) AND (u.email = "aalejo@gmail.com") -> Access denied for user 'SYSTEM'@'localhost' (using password: NO)
+[2010/10/08 04:58:42] No se ha podido realizar la accion: SELECT u.status,u.id,u.locationId,u.password,r.name AS roleName FROM user u,role r WHERE (u.roleId = r.id) AND (u.email = "aalejo@gmail.com") -> Access denied for user 'SYSTEM'@'localhost' (using password: NO)
+[2010/10/08 05:18:42] No se ha podido realizar la consulta a la BD:  -> 
+[2010/10/08 05:19:10] No se ha podido realizar la consulta a la BD:  -> 
+[2010/10/08 05:19:44] No se ha podido realizar la consulta a la BD: There is no open connection
+[2010/10/08 05:20:05] There is no open connection
+[2010/10/08 05:23:48] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'canis.user' doesn't exist. Failing Query: "SELECT u.id AS u__id, u.email AS u__email, u.password AS u__password, u.locationid AS u__locationid, u.roleid AS u__roleid, u.status AS u__status, u.validation_code AS u__validation_code, u.facebook_id AS u__facebook_id FROM user u WHERE (u.email = 'aalejo@gmail.com')"

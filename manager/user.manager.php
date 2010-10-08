@@ -16,13 +16,25 @@ class UserManager
 	public function validate($user,$password)
 	{
 		if (!isset($user)) $user = new CocoasUser();
+		$cuenta = 0;
 
-		$result = $this->validator->exect('SELECT u.status,u.id,u.locationId,u.password,r.name AS roleName FROM user u,role r WHERE (u.roleId = r.id) AND (u.email = "'.$user->name.'")');
-
-		if(($result != false) && (mysql_num_rows($result) == 1))
+		try
 		{
-			$auxUser = mysql_fetch_object($result);
+			$this->connection = Doctrine_Manager::connection();
+			$q = Doctrine_Query::create()
+				->from('user u')
+				->where("u.email='".$user->name."'");
+			$rows = $q->execute();
+			$cuenta = count($rows);
+		}
+		catch(Exception $e)
+		{
+			if($GLOBALS["debugMode"]) $this->validator->errors->addError(ErrorManager::CANIS_FATAL,$e->getMessage());
+		}
 
+		if($cuenta == 1)
+		{
+			$auxUser = $rows[0];
 			//Si los hash de la clave coinciden
 			if ($password == $auxUser->password)
 			{
@@ -64,5 +76,21 @@ class UserManager
 		$_SESSION["user"] = new CocoasUser();
 	}
 
+	function exect($query)
+	{
+		$result = null;
+		try
+		{
+			$result = mysql_query($query);
+			if($GLOBALS["debugMode"]) if(!$result) $this->validator->errors->addError(ErrorManager::CANIS_FATAL,'No se ha podido realizar la accion: '.$query.' -> '.mysql_error());
+		}
+		catch(Exception $e)
+		{
+			$this->validator->errors->addError(ErrorManager::CANIS_FATAL,'No se ha podido realizar la accion: '.$e->getMessage());
+		}
+		
+		return $result;
+	}
+	
 }
 ?>

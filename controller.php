@@ -16,7 +16,6 @@ require_once("phputils/CocoasUser.class.php");
 require_once('manager/error.manager.php');
 require_once("manager/template.manager.php");
 require_once("manager/info.manager.php");
-require_once("manager/user.manager.php");
 require_once("manager/catalog.manager.php");
 session_start();
 
@@ -53,44 +52,18 @@ $infoManager = new InfoManager($_SESSION['CANIS_BINDINGS'],$_SESSION['CANIS_ROLE
 $infoManager->setTemplate("default");
 //////////////////////////////////////////////////////////////////////////////
 
-if(isset($_REQUEST['close_session']))
+if(isset($_REQUEST['view']))
 {
-	$userManager = new UserManager();
-	$userManager->closeSession();
-	header('Location: index.php');
-	exit();
+	$infoManager->get($_REQUEST['view'],'view');
 }
-else if(isset($_REQUEST['autenticate']))
+else if(isset($_REQUEST['panel']))
 {
-	$userManager = new UserManager();
-	$userManager->loginUser();
 
-	if($_SESSION['user']->status!='invalid')
-	{
-		echo '<script language="JavaScript1.1">window.location="controller.php?view='.$GLOBALS["PRIVATE_VIEW"].'";</script>';
-	}
-    else
-		echo "Invalid email or password.";
-
-	exit();
+	$infoManager->get($_REQUEST['panel'],'panel');
 }
 else
 {
-
-		if(isset($_REQUEST['view']))
-		{
-			$infoManager->get($_REQUEST['view'],'view');
-		}
-		else if(isset($_REQUEST['panel']))
-		{
-	
-			$infoManager->get($_REQUEST['panel'],'panel');
-		}
-		else
-		{
-			$infoManager->get('','error');
-		}
-	
-
+	$infoManager->get('','error');
 }
+
 ?>

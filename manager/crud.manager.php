@@ -23,14 +23,14 @@ class CRUDManager
 		$this->bindings = $bindings;
 		$this->roleBindings = $roleBindings;
 		$this->validator = new httpRequestValidator('CRUDManager');
-		$this->connection = Doctrine_Manager::connection();
+		if($GLOBALS["dbServer"]!='' && $GLOBALS["dbName"]!='' && $GLOBALS["user"]!='') $this->connection = Doctrine_Manager::connection();
 		$this->errors = ErrorManager::getInstance();
 	}
 
 	public function excecuteTransaction($view,$transactionName)
 	{
 		//echo "begin transaction connection: ".$this->connection->getName().'.';
-		$this->connection->beginTransaction();
+		if($this->connection) $this->connection->beginTransaction();
 
 		$class = $this->getClassFromView($view,$this->bindings);
 		$permision = $this->getViewsFromRole($_SESSION['user']->roleName,$this->roleBindings);
@@ -68,13 +68,13 @@ class CRUDManager
 		if($this->errors->totalErrors(array(ErrorManager::CANIS_FATAL,ErrorManager::CANIS_ERROR,ErrorManager::CANIS_USER_ERROR))==0 && $destination!='')
 		{
 			//echo "Commit:".$this->connection->getName().'.';
-			$this->connection->commit();
+			if($this->connection) $this->connection->commit();
 			echo '<script language="JavaScript1.1">window.location="'.$destination.'";</script>';
 		}
 		else
 		{
 			//echo "trying Rollback: ".$this->connection->getName().'.';
-			$this->connection->rollback();
+			if($this->connection) $this->connection->rollback();
 
 			if(isset($destination) && $destination=='') $this->errors->addError(ErrorManager::CANIS_ERROR,"There is no return value on that getter.");
 

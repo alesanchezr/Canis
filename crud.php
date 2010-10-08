@@ -13,7 +13,7 @@ require_once("phputils/Url.class.php");
 require_once('manager/error.manager.php');
 require_once("manager/crud.manager.php");
 require_once("phputils/CocoasUser.class.php");
-
+require_once("manager/user.manager.php");
 session_start();
 
 if (!$GLOBALS["debugMode"])
@@ -98,6 +98,27 @@ if (isset($_REQUEST['action']))
 		}
 	}
 	$crudManager->excecuteTransaction($view,$action);
+}
+else if(isset($_REQUEST['close_session']))
+{
+	$userManager = new UserManager();
+	$userManager->closeSession();
+	header('Location: index.php');
+	exit();
+}
+else if(isset($_REQUEST['autenticate']))
+{
+	$userManager = new UserManager();
+	$userManager->loginUser();
+
+	if($_SESSION['user']->status!='invalid')
+	{
+		echo '<script language="JavaScript1.1">window.location="controller.php?view='.$GLOBALS["PRIVATE_VIEW"].'";</script>';
+	}
+    else
+		echo "Invalid email or password.";
+
+	exit();
 }
 else if (isset($_REQUEST['public_action']))
 {

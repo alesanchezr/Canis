@@ -10,7 +10,7 @@
                 	<?php if($_SESSION['user']->roleName=='invalid') { ?>
                 	<a href="controller.php?view=<?php echo $GLOBALS["LOGIN_VIEW"] ?>">Login</a>
                     <?php }else{ ?>
-                    <a href="controller.php?close_session">Logout</a>
+                    <a href="crud.php?close_session">Logout</a>
                     <?php } ?>
                 </li>
             </ul>

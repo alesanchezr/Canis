@@ -51,7 +51,7 @@
 	<div class="error" id="standardError" style="display:none;"></div>
 
     <div id="login">
-	<form action="controller.php" id="loginForm">
+	<form action="crud.php" id="loginForm">
     <input name="autenticate" type="hidden" value="" />
 		<input name="user" id="user" type="text" title="email" />	<strong class="error" id="userError"></strong>
         <input name="password" id="password" type="password" />		<strong class="error" id="passwordError"></strong>
