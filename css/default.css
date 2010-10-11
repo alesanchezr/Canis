@@ -13,9 +13,9 @@ html, body, ul, li, h1
 	margin-left:auto;
 	margin-right:auto;
 	font-size:16px;
-	width:1000px;
 	text-align:right;
-	height:30px;
+	height:10px;
+	padding: 10px;
 }
 #rightCenter li{display:inline; margin-left:20px;}
 #rightCenter li a{color:#FFFFFF;}
@@ -23,9 +23,7 @@ html, body, ul, li, h1
 {
 	padding:0;
 	margin:0;
-	display:inline-block;
 	background: #0CF no-repeat;
-	width: 100%;
 }
 #semiUpBar
 {
@@ -34,4 +32,4 @@ html, body, ul, li, h1
 	display:inline-block;
 	width:100%;
 }
-#default-content{margin-top:30px; margin-left:auto; margin-right:auto; width:1000px;}
+#default-content{margin-top:30px; margin-left:auto; margin-right:auto; width:790px;}

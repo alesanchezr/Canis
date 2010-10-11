@@ -8,11 +8,12 @@
  * @property integer $id
  * @property string $email
  * @property string $password
- * @property integer $locationid
- * @property integer $roleid
+ * @property integer $location_id
+ * @property integer $role_id
  * @property string $status
  * @property integer $validation_code
- * @property integer $facebook_id
+ * @property Location $Location
+ * @property Role $Role
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -50,7 +51,7 @@ abstract class BaseUser extends Doctrine_Record
              'autoincrement' => false,
              'length' => '205',
              ));
-        $this->hasColumn('locationid', 'integer', 4, array(
+        $this->hasColumn('location_id', 'integer', 4, array(
              'type' => 'integer',
              'fixed' => 0,
              'unsigned' => false,
@@ -60,7 +61,7 @@ abstract class BaseUser extends Doctrine_Record
              'autoincrement' => false,
              'length' => '4',
              ));
-        $this->hasColumn('roleid', 'integer', 4, array(
+        $this->hasColumn('role_id', 'integer', 4, array(
              'type' => 'integer',
              'fixed' => 0,
              'unsigned' => false,
@@ -89,20 +90,17 @@ abstract class BaseUser extends Doctrine_Record
              'autoincrement' => false,
              'length' => '8',
              ));
-        $this->hasColumn('facebook_id', 'integer', 8, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '8',
-             ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        
+        $this->hasOne('Location', array(
+             'local' => 'location_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('Role', array(
+             'local' => 'role_id',
+             'foreign' => 'id'));
     }
 }

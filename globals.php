@@ -29,10 +29,10 @@ $GLOBALS["PENDING_VIEW"]    = "validate";
 /*--------THIS ARE THE MYSQL CONECTION DEFINITIONS----------*/
 //
 $GLOBALS["dbServer"]   = "localhost";
-$GLOBALS["dbName"]     = "canis";
+$GLOBALS["dbName"]     = "ejemplo";
 $GLOBALS["dbUser"]     = "root";
 $GLOBALS["dbPassword"] = "";
-$GLOBALS["doctrineConnection"] = "";
+$GLOBALS["doctrineConnection"] = "connectionexample";
 
 //$GLOBALS["dbServer"]   = "localhost";
 //$GLOBALS["dbName"]     = "ivoted";

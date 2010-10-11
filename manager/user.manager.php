@@ -38,8 +38,8 @@ class UserManager
 			//Si los hash de la clave coinciden
 			if ($password == $auxUser->password)
 			{
-				$user->roleName   = $auxUser->roleName;
-				$user->locationId = $auxUser->locationId;
+				$user->roleName   = $auxUser->Role->name;
+				$user->locationId = $auxUser->Location->id;
 				$user->status     = $auxUser->status;
 				$user->id         = $auxUser->id;
 			}

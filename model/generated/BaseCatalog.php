@@ -7,6 +7,7 @@
  * 
  * @property integer $id
  * @property string $name
+ * @property Doctrine_Collection $CatalogValue
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -40,6 +41,8 @@ abstract class BaseCatalog extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
+        $this->hasMany('CatalogValue', array(
+             'local' => 'id',
+             'foreign' => 'catalog_id'));
     }
 }

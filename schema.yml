@@ -1,3 +1,4 @@
+detect_relations: true
 Catalog:
   tableName: catalog
   columns:
@@ -45,14 +46,14 @@ CatalogValue:
       primary: false
       notnull: false
       autoincrement: false
-    id_depend:
+    catalogvalue_id:
       type: integer(8)
       fixed: false
       unsigned: false
       primary: false
       notnull: false
       autoincrement: false
-    id_catalog:
+    catalog_id:
       type: integer(4)
       fixed: false
       unsigned: false
@@ -115,7 +116,7 @@ User:
       primary: false
       notnull: false
       autoincrement: false
-    locationid:
+    location_id:
       type: integer(4)
       fixed: false
       unsigned: false
@@ -123,7 +124,7 @@ User:
       default: '1'
       notnull: true
       autoincrement: false
-    roleid:
+    role_id:
       type: integer(4)
       fixed: false
       unsigned: false
@@ -145,11 +146,4 @@ User:
       unsigned: false
       primary: false
       notnull: true
-      autoincrement: false
-    facebook_id:
-      type: integer(8)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
       autoincrement: false

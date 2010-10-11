@@ -7,6 +7,7 @@
  * 
  * @property integer $id
  * @property string $name
+ * @property Doctrine_Collection $User
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -40,6 +41,8 @@ abstract class BaseRole extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
+        $this->hasMany('User', array(
+             'local' => 'id',
+             'foreign' => 'role_id'));
     }
 }
