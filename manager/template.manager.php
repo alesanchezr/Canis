@@ -19,7 +19,7 @@ class TemplateManager
 		$this->errors = ErrorManager::getInstance();
 	}
 
-	public function show($logicPath,$type,$vars,$permision,$styles)
+	public function show($logicPath,$type,$vars,$permision,$styles,$scripts)
 	{
 		$_CATALOGS = CatalogManager::getInstance();
 		$root = "templates/".$this->template."/";

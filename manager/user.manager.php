@@ -74,6 +74,9 @@ class UserManager
 	public function closeSession()
 	{
 		$_SESSION["user"] = new CocoasUser();
+		FOREACH($_COOKIE AS $key => $value) {
+		     SETCOOKIE($key,$value,TIME()-10000);
+		}
 	}
 
 	function exect($query)

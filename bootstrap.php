@@ -17,12 +17,13 @@ $dbServer = $GLOBALS["dbServer"];
 $user = $GLOBALS["dbUser"];
 $password = $GLOBALS["dbPassword"];
 
-if($dbServer!='' && $dbName!='' && $user!='')
+if(!empty($dbName) && !empty($dbServer))
 {
 
-	//echo "Doctrine_Manager::connection('mysql://'.$user.':'.$password.'@'.$dbServer.'/'.$dbName, ".$GLOBALS["dbName"].")";
 	//Conexion PDO entre PHP y MySQL
-	$conn = Doctrine_Manager::connection('mysql://'.$user.':'.$password.'@'.$dbServer.'/'.$dbName, $GLOBALS["doctrineConnection"]);
+	//$conn = Doctrine_Manager::connection('mysql://'.$user.':'.$password.'@'.$dbServer.'/'.$dbName, $GLOBALS["connectionName"]);
+	$dbh = new PDO($dsn, $user, $password);
+	$conn = Doctrine_Manager::connection($dbh, $GLOBALS["connectionName"]);
 
 	//Para decirle a doctrine el usuario y pass
 	$conn->setOption('username', $user);
@@ -44,7 +45,7 @@ if($dbServer!='' && $dbName!='' && $user!='')
 	if($GLOBALS["BDLazyMode"])
 		$manager->setAttribute(Doctrine::ATTR_MODEL_LOADING, Doctrine::MODEL_LOADING_CONSERVATIVE);
 	else
-		$manager->setAttribute(Doctrine::ATTR_MODEL_LOADING, Doctrine::MODEL_LOADING_AGGRESSIVE);
+	 	$manager->setAttribute(Doctrine::ATTR_MODEL_LOADING, Doctrine::MODEL_LOADING_AGGRESSIVE);
 
 	//Cargo todo el modelo
 	if(file_exists('model/generated')) Doctrine::loadModels('model/generated');
@@ -52,5 +53,6 @@ if($dbServer!='' && $dbName!='' && $user!='')
 
 	if(file_exists('model')) Doctrine::loadModels('model');
 	else if($GLOBALS["debugMode"]) echo "No se ha encontrador el directorio 'model'";
+
 }
 ?>

@@ -23,21 +23,20 @@ class CRUDManager
 		$this->bindings = $bindings;
 		$this->roleBindings = $roleBindings;
 		$this->validator = new httpRequestValidator('CRUDManager');
-		if($GLOBALS["dbServer"]!='' && $GLOBALS["dbName"]!='' && $GLOBALS["user"]!='') $this->connection = Doctrine_Manager::connection();
+		$this->connection = Doctrine_Manager::connection();
 		$this->errors = ErrorManager::getInstance();
 	}
 
 	public function excecuteTransaction($view,$transactionName)
 	{
 		//echo "begin transaction connection: ".$this->connection->getName().'.';
-		if($this->connection) $this->connection->beginTransaction();
+		$this->connection->beginTransaction();
 
 		$class = $this->getClassFromView($view,$this->bindings);
 		$permision = $this->getViewsFromRole($_SESSION['user']->roleName,$this->roleBindings);
 
 		if(!isset($permision[$view]) || $permision[$view]['edit']!='true')
 		{
-
 			$this->errors->addError(ErrorManager::CANIS_INFO,"User role: '".$_SESSION['user']->roleName."' cannot perform this action '$transactionName'");
 
 			//ademas salgo de este script
@@ -68,13 +67,13 @@ class CRUDManager
 		if($this->errors->totalErrors(array(ErrorManager::CANIS_FATAL,ErrorManager::CANIS_ERROR,ErrorManager::CANIS_USER_ERROR))==0 && $destination!='')
 		{
 			//echo "Commit:".$this->connection->getName().'.';
-			if($this->connection) $this->connection->commit();
-			echo '<script language="JavaScript1.1">window.location="'.$destination.'";</script>';
+			$this->connection->commit();
+			if($destination!='void') echo '<script language="JavaScript1.1">window.location="'.$destination.'";</script>';
 		}
 		else
 		{
 			//echo "trying Rollback: ".$this->connection->getName().'.';
-			if($this->connection) $this->connection->rollback();
+			$this->connection->rollback();
 
 			if(isset($destination) && $destination=='') $this->errors->addError(ErrorManager::CANIS_ERROR,"There is no return value on that getter.");
 
@@ -205,8 +204,6 @@ class CRUDManager
 								for($j = 0;$j<count($result["roles"]["role"][$i]['view']);$j++)
 								{
 									$view[$result["roles"]["role"][$i]["view"][$j]['value']]['read'] = $result["roles"]["role"][$i]["view"][$j]["attr"]['read'];
-									$view[$result["roles"]["role"][$i]["view"][$j]['value']]['add'] = $result["roles"]["role"][$i]["view"][$j]["attr"]['add'];
-									$view[$result["roles"]["role"][$i]["view"][$j]['value']]['delete'] = $result["roles"]["role"][$i]["view"][$j]["attr"]['delete'];
 									$view[$result["roles"]["role"][$i]["view"][$j]['value']]['edit'] = $result["roles"]["role"][$i]["view"][$j]["attr"]['edit'];
 								}
 						}
@@ -214,8 +211,6 @@ class CRUDManager
 						{
 							$view[$result["roles"]["role"][$i]["view"]['value']]['read'] = $result["roles"]["role"][$i]["view"]["attr"]['read'];
 							$view[$result["roles"]["role"][$i]["view"]['value']]['edit'] = $result["roles"]["role"][$i]["view"]["attr"]['edit'];
-							$view[$result["roles"]["role"][$i]["view"]['value']]['delete'] = $result["roles"]["role"][$i]["view"]["attr"]['delete'];
-							$view[$result["roles"]["role"][$i]["view"]['value']]['add'] = $result["roles"]["role"][$i]["view"]["attr"]['add'];
 						}
 			}
 		}
@@ -230,16 +225,12 @@ class CRUDManager
 						for($j = 0;$j<count($result["roles"]["role"]['view']);$j++)
 						{
 							$view[$result["roles"]["role"]["view"][$j]['value']]['edit'] = $result["roles"]["role"]["view"][$j]["attr"]['edit'];
-							$view[$result["roles"]["role"]["view"][$j]['value']]['delete'] = $result["roles"]["role"]["view"][$j]["attr"]['delete'];
-							$view[$result["roles"]["role"]["view"][$j]['value']]['add'] = $result["roles"]["role"]["view"][$j]["attr"]['add'];
 							$view[$result["roles"]["role"]["view"][$j]['value']]['read'] = $result["roles"]["role"]["view"][$j]["attr"]['read'];
 						}
 					}
 					else
 					{
 						$view[$result["roles"]["role"]["view"]['value']]['edit'] = $result["roles"]["role"]["view"]["attr"]['edit'];
-						$view[$result["roles"]["role"]["view"]['value']]['delete'] = $result["roles"]["role"]["view"]["attr"]['delete'];
-						$view[$result["roles"]["role"]["view"]['value']]['add'] = $result["roles"]["role"]["view"]["attr"]['add'];
 						$view[$result["roles"]["role"]["view"]['value']]['read'] = $result["roles"]["role"]["view"]["attr"]['read'];
 					}
 			}

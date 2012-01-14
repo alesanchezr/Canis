@@ -25,14 +25,15 @@ $GLOBALS["DEFAULT_ROLE_ID"] = "1";
 $GLOBALS["PENDING_VIEW"]    = "validate";
 
 /*--------END OF THE MANDATORY DEFINITIONS----------*/
+$GLOBALS["doctrineConnection"] = "connectionexample";
+$GLOBALS["canisSessionName"] = "ejemploDeSession";
 
 /*--------THIS ARE THE MYSQL CONECTION DEFINITIONS----------*/
 //
-$GLOBALS["dbServer"]   = "localhost";
-$GLOBALS["dbName"]     = "ejemplo";
-$GLOBALS["dbUser"]     = "root";
+$GLOBALS["dbServer"]   = "";
+$GLOBALS["dbName"]     = "";
+$GLOBALS["dbUser"]     = "";
 $GLOBALS["dbPassword"] = "";
-$GLOBALS["doctrineConnection"] = "connectionexample";
 
 //$GLOBALS["dbServer"]   = "localhost";
 //$GLOBALS["dbName"]     = "ivoted";
@@ -71,6 +72,8 @@ $GLOBALS["error_mailAccount"]  = "aalejo@gmail.com";
 /*--------FRENDLY URL DEFINITIONS----------*/
 
 $GLOBALS["frendlyURL"] = true;
-$GLOBALS["baseURL"] = "Canis";
+
+
+$GLOBALS["baseURL"] = "http://localhost:8888/canis-base/Canis/";
 
 ?>

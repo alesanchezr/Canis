@@ -1,5 +1,4 @@
 <?php
-
 require_once("globals.php");
 if(!$GLOBALS["debugMode"])
 {
@@ -16,7 +15,9 @@ require_once("phputils/CocoasUser.class.php");
 require_once('manager/error.manager.php');
 require_once("manager/template.manager.php");
 require_once("manager/info.manager.php");
+require_once("manager/user.manager.php");
 require_once("manager/catalog.manager.php");
+session_name($GLOBALS["canisSessionName"]);
 session_start();
 
 
@@ -52,6 +53,7 @@ $infoManager = new InfoManager($_SESSION['CANIS_BINDINGS'],$_SESSION['CANIS_ROLE
 $infoManager->setTemplate("default");
 //////////////////////////////////////////////////////////////////////////////
 
+
 if(isset($_REQUEST['view']))
 {
 	$infoManager->get($_REQUEST['view'],'view');
@@ -63,7 +65,6 @@ else if(isset($_REQUEST['panel']))
 }
 else
 {
-	$infoManager->get('','error');
+	//$infoManager->get('','error');
 }
-
 ?>

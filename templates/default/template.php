@@ -19,5 +19,6 @@
 <!-- start footer -->
 	<?php require_once($root.'footer.php'); ?>
 <!-- end footer -->
+	<?php require_once('cocoasScripts.js'); ?>
 </body>
 </html>

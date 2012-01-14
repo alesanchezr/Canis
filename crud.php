@@ -1,5 +1,4 @@
 <?php
-
 require_once("globals.php");
 if($GLOBALS["debugMode"])
 {
@@ -14,6 +13,8 @@ require_once('manager/error.manager.php');
 require_once("manager/crud.manager.php");
 require_once("phputils/CocoasUser.class.php");
 require_once("manager/user.manager.php");
+require_once("manager/task.manager.php");
+session_name($GLOBALS["canisSessionName"]);
 session_start();
 
 if (!$GLOBALS["debugMode"])
@@ -66,18 +67,9 @@ if (isset($_REQUEST['action']))
 	}
 	else if (isset($_SERVER['HTTP_REFERER']))
 	{
-		$urlArray = parse_url($_SERVER['HTTP_REFERER']);
-
-		$varArray = Url::parseQuery($urlArray['query']);
-
-		if (isset($varArray['view']))
-		{
-			$view = $varArray['view'];
-		}
-		else if (isset($varArray['panel']))
-		{
-			$panel = $varArray['panel'];
-		}
+		$urlString = parse_url($_SERVER['HTTP_REFERER']);
+		$urlParts = explode('/', $urlString["path"]);
+		$view = array_pop($urlParts);
 	}
 
 	$action = $_REQUEST['action'];
@@ -99,13 +91,6 @@ if (isset($_REQUEST['action']))
 	}
 	$crudManager->excecuteTransaction($view,$action);
 }
-else if(isset($_REQUEST['close_session']))
-{
-	$userManager = new UserManager();
-	$userManager->closeSession();
-	header('Location: index.php');
-	exit();
-}
 else if(isset($_REQUEST['autenticate']))
 {
 	$userManager = new UserManager();
@@ -113,11 +98,83 @@ else if(isset($_REQUEST['autenticate']))
 
 	if($_SESSION['user']->status!='invalid')
 	{
-		echo '<script language="JavaScript1.1">window.location="controller.php?view='.$GLOBALS["PRIVATE_VIEW"].'";</script>';
+		if ($_SESSION['user']->roleName=='manager')
+		{
+
+			echo '<script language="JavaScript1.1">window.location="'.$GLOBALS["baseURL"].''.$GLOBALS["MANAGER_VIEW"].'";</script>';
+		}
+		else if($_SESSION['user']->roleName=='resident' || $_SESSION['user']->roleName=='condo' || $_SESSION['user']->roleName=='applicant')
+		{
+
+			if(!isset($_SESSION["pendingCanisViewRequest"]) || $_SESSION["pendingCanisViewRequest"]=='')
+			{
+		   		echo '<script language="JavaScript1.1">window.location="'.$GLOBALS["baseURL"].''.$GLOBALS["PRIVATE_VIEW"].'";</script>';
+			}
+		   	else if(isset($_SESSION["pendingCanisViewRequest"]) && $_SESSION["pendingCanisViewRequest"]!='')
+		   	{
+				$fowaerd = $_SESSION["pendingCanisViewRequest"];
+				unset($_SESSION["pendingCanisViewRequest"]);
+		   		echo '<script language="JavaScript1.1">window.location="'.$fowaerd.'";</script>';
+		   		//echo "redireccionando a '".$fowaerd."'";
+				//echo $fowaerd;
+		   	}
+			else
+			{
+		   		echo '<script language="JavaScript1.1">window.location="'.$GLOBALS["baseURL"].''.$GLOBALS["PRIVATE_VIEW"].'";</script>';
+			}
+		}
+		else if($_SESSION['user']->roleName=='houseresident')
+		{
+
+			if(empty($_SESSION["pendingCanisViewRequest"]))
+		   		echo '<script language="JavaScript1.1">window.location="'.$GLOBALS["baseURL"].''.$GLOBALS["HOUSE_HOME"].'";</script>';
+		   	else
+		   	{
+				$fowaerd = $_SESSION["pendingCanisViewRequest"];
+				unset($_SESSION["pendingCanisViewRequest"]);
+		   		echo '<script language="JavaScript1.1">window.location="'.$fowaerd.'";</script>';
+		   	}
+		}
+		else if($_SESSION['user']->roleName == 'admin')
+		{
+			echo '<script language="JavaScript1.1">window.location="'.$GLOBALS["baseURL"].''.$GLOBALS["PRIVATE_VIEW"].'";</script>';
+		
+		}
+		else if ($_SESSION['user']->roleName == 'desarrollador')
+		{
+			echo '<script language="JavaScript1.1">window.location="'.$GLOBALS["baseURL"].''.$GLOBALS["DEVELOPER_VIEW"].'";</script>';
+		}
+		else if($_SESSION['user']->roleName == 'lider tecnico')
+		{
+			echo '<script language="JavaScript1.1">window.location="'.$GLOBALS["baseURL"].''.$GLOBALS["LIDER_VIEW"].'";</script>';
+		}else if($_SESSION['user']->roleName == 'treasurer'){
+				
+			echo '<script language="JavaScript1.1">window.location="'.$GLOBALS["baseURL"].''.$GLOBALS["TREASURER_VIEW"].'";</script>';
+		}else if($_SESSION['user']->roleName == 'supervisor'){
+				
+			echo '<script language="JavaScript1.1">window.location="'.$GLOBALS["baseURL"].''.$GLOBALS["SUPERVISOR_VIEW"].'";</script>';
+		}
+		else
+			echo "Role desconocido o invalido '".$_SESSION['user']->roleName."'";
 	}
     else
-		echo "Invalid email or password.";
+    {
+		if(isset($_REQUEST['view']) && $_REQUEST['view']!="login")
+		{
+			//$_SESSION["pendingCanisViewRequest"] = curPageURL();
+			echo '<script language="JavaScript1.1">window.location="'.$GLOBALS["baseURL"].''.$GLOBALS["LOGIN_VIEW"].'";</script>';
+		}
+    	else
+    		echo "Correo o contrase&ntilde;a inv&aacute;lidos.";
+    }
 
+	exit();
+}
+else if(isset($_REQUEST['close_session']))
+{
+	$userManager = new UserManager();
+	$userManager->closeSession();
+	header('Location: index.php');
 	exit();
 }
 else if (isset($_REQUEST['public_action']))
@@ -131,6 +188,7 @@ else if (isset($_REQUEST['public_action']))
 		die('No se ha encontro la accion publica '.$_REQUEST['public_action']);
 	}
 }
+
 else
 {
 	if ($GLOBALS["debugMode"])
@@ -141,6 +199,22 @@ else
 	{
 		header("HTTP/1.0 404 Not Found");
 	}
+}
+
+function curPageURL()
+{
+	$pageURL = 'http';
+	if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")
+		$pageURL .= "s";
+
+	$pageURL .= "://";
+	if (isset($_SERVER["SERVER_PORT"]) && $_SERVER["SERVER_PORT"] != "80")
+		$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+	else
+		$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+
+	//die($pageURL);
+	return $pageURL;
 }
 
 ?>

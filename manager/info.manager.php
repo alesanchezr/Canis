@@ -37,10 +37,11 @@ class InfoManager
 		{
 			$permision = $this->validateRol($logicPath);
 			$styles = $this->getStyles($logicPath,$this->bindings);
-
+			$scripts = $this->getJavascript($logicPath,$this->bindings);
+			
 			$template = $this->getTemplateFromView($logicPath,$this->bindings);
 			if(!empty($template)) $this->setTemplate($template);
-
+			
 			if($permision!=-1 && $permision!=0)
 			{
 
@@ -50,7 +51,7 @@ class InfoManager
 
 						$metodos = $this->getMethodsFromView($logicPath,$this->bindings);
 						$class = $this->getDelegateFromView($logicPath,$this->bindings);
-
+						
 						if($class)
 							if(!file_exists("delegate/".$class.".delegate.php"))
 							{
@@ -64,7 +65,7 @@ class InfoManager
 								$newclass = new $class();
 							}
 
-							//Este arreglo contendrá todas las variables para renderizar la view
+							//Este arreglo contendrï¿½ todas las variables para renderizar la view
 							$vars = array();
 
 							if($class!='' && $metodos!='' && count($metodos)>0 && isset($newclass))
@@ -81,7 +82,7 @@ class InfoManager
 
 							}
 
-								$view = $this->templateManager->show($logicPath,$type,$vars,$permision,$styles);
+								$view = $this->templateManager->show($logicPath,$type,$vars,$permision,$styles,$scripts);
 
 					break;
 				}
@@ -111,7 +112,7 @@ class InfoManager
 		{
 			if($permision[$logicPath]['read']!='true')
 			{
-				//si no existe, envio a la página de autentificacion
+				//si no existe, envio a la pï¿½gina de autentificacion
 				if(!$GLOBALS["debugMode"]) header("Location: controller.php?view=".$GLOBALS["LOGIN_VIEW"]);
 				else
 				{
@@ -132,7 +133,7 @@ class InfoManager
 		else
 		{
 			//print_r($permision);
-			//si no existe, envio a la página de autentificacion
+			//si no existe, envio a la pï¿½gina de autentificacion
 			if(!$GLOBALS["debugMode"]) header("Location: controller.php?view=".$GLOBALS["LOGIN_VIEW"]);
 			else
 			{
@@ -266,8 +267,6 @@ class InfoManager
 								for($j = 0;$j<count($result["roles"]["role"][$i]['view']);$j++)
 								{
 									$view[$result["roles"]["role"][$i]["view"][$j]['value']]['read'] = $result["roles"]["role"][$i]["view"][$j]["attr"]['read'];
-									$view[$result["roles"]["role"][$i]["view"][$j]['value']]['add'] = $result["roles"]["role"][$i]["view"][$j]["attr"]['add'];
-									$view[$result["roles"]["role"][$i]["view"][$j]['value']]['delete'] = $result["roles"]["role"][$i]["view"][$j]["attr"]['delete'];
 									$view[$result["roles"]["role"][$i]["view"][$j]['value']]['edit'] = $result["roles"]["role"][$i]["view"][$j]["attr"]['edit'];
 								}
 						}
@@ -276,8 +275,6 @@ class InfoManager
 							$rolEncontrado = true;
 							$view[$result["roles"]["role"][$i]["view"]['value']]['read'] = $result["roles"]["role"][$i]["view"]["attr"]['read'];
 							$view[$result["roles"]["role"][$i]["view"]['value']]['edit'] = $result["roles"]["role"][$i]["view"]["attr"]['edit'];
-							$view[$result["roles"]["role"][$i]["view"]['value']]['delete'] = $result["roles"]["role"][$i]["view"]["attr"]['delete'];
-							$view[$result["roles"]["role"][$i]["view"]['value']]['add'] = $result["roles"]["role"][$i]["view"]["attr"]['add'];
 						}
 			}
 			if($rolEncontrado==false)
@@ -296,16 +293,12 @@ class InfoManager
 						for($j = 0;$j<count($result["roles"]["role"]['view']);$j++)
 						{
 							$view[$result["roles"]["role"]["view"][$j]['value']]['edit'] = $result["roles"]["role"]["view"][$j]["attr"]['edit'];
-							$view[$result["roles"]["role"]["view"][$j]['value']]['delete'] = $result["roles"]["role"]["view"][$j]["attr"]['delete'];
-							$view[$result["roles"]["role"]["view"][$j]['value']]['add'] = $result["roles"]["role"]["view"][$j]["attr"]['add'];
 							$view[$result["roles"]["role"]["view"][$j]['value']]['read'] = $result["roles"]["role"]["view"][$j]["attr"]['read'];
 						}
 					}
 					else
 					{
 						$view[$result["roles"]["role"]["view"]['value']]['edit'] = $result["roles"]["role"]["view"]["attr"]['edit'];
-						$view[$result["roles"]["role"]["view"]['value']]['delete'] = $result["roles"]["role"]["view"]["attr"]['delete'];
-						$view[$result["roles"]["role"]["view"]['value']]['add'] = $result["roles"]["role"]["view"]["attr"]['add'];
 						$view[$result["roles"]["role"]["view"]['value']]['read'] = $result["roles"]["role"]["view"]["attr"]['read'];
 					}
 			}
@@ -367,6 +360,38 @@ class InfoManager
 				if($result["views"]["view"]['attr']['styles']!='')
 				{
 					$array[$page] = $result["views"]["view"]['attr']['styles'];
+					return $array;
+				}
+		}
+		else
+		{
+			$this->errors->addError(ErrorManager::CANIS_FATAL,"Invalid binding.xml, there was a parsing problem.");
+		}
+
+		return array();
+	}
+	
+	private function getJavascript($page,$result)
+	{
+		$i = 0;
+		if(isset($result["views"]["view"][0]))
+		{
+			for($i = 0;$i<count($result["views"]["view"]);$i++)
+			{
+				if($result["views"]["view"][$i]['attr']['name']==$page)
+					if(isset($result["views"]["view"][$i]['attr']['scripts']) && $result["views"]["view"][$i]['attr']['scripts']!='')
+					{
+						$array[$page] = $result["views"]["view"][$i]['attr']['scripts'];
+						return $array;
+					}
+			}
+		}
+		else if(isset($result["views"]["view"]['attr']['name']))
+		{
+			if($result["views"]["view"][$i]['attr']['name']==$page && isset($result["views"]["view"]['attr']['scripts']))
+				if($result["views"]["view"]['attr']['scripts']!='')
+				{
+					$array[$page] = $result["views"]["view"]['attr']['scripts'];
 					return $array;
 				}
 		}
