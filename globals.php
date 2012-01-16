@@ -25,7 +25,7 @@ $GLOBALS["DEFAULT_ROLE_ID"] = "1";
 $GLOBALS["PENDING_VIEW"]    = "validate";
 
 /*--------END OF THE MANDATORY DEFINITIONS----------*/
-$GLOBALS["doctrineConnection"] = "connectionexample";
+$GLOBALS["connectionName"] = "connectionexample";
 $GLOBALS["canisSessionName"] = "ejemploDeSession";
 
 /*--------THIS ARE THE MYSQL CONECTION DEFINITIONS----------*/
