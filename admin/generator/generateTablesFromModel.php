@@ -7,10 +7,10 @@ se pueden referenciar todas las clases en cualquier parte del framework, Ej:
 $role = new Role();
 echo $role->id;
 
+
+
 */
-
 require_once('../../globals.php');
-
 require_once('../../plugins/doctrine/lib/Doctrine.php');
 
 spl_autoload_register(array('Doctrine', 'autoload'));
@@ -22,7 +22,7 @@ $user = $GLOBALS["dbUser"];
 $password = $GLOBALS["dbPassword"];
 
 //Conexion PDO entre PHP y MySQL
-$conn = Doctrine_Manager::connection('mysql://'.$user.':'.$password.'@'.$dbServer.'/'.$dbName, $GLOBALS["dbName"]);
+$conn = Doctrine_Manager::connection('mysql://'.$user.':'.$password.'@'.$dbServer.'/'.$dbName, $GLOBALS["connectionName"]);
 
 //Para decirle a doctrine el usuario y pass
 $conn->setOption('username', $user);
@@ -56,6 +56,14 @@ else if($GLOBALS["debugMode"]) echo "No se ha encontrador el directorio 'model'"
 //Debo hace un aggressive loadin de manera obligarotia, sino no se cargan todas las clases
 $manager->setAttribute(Doctrine::ATTR_MODEL_LOADING, Doctrine::MODEL_LOADING_AGGRESSIVE);
 
-Doctrine::createTablesFromModels('../../model');
+try
+{
+	Doctrine::createTablesFromModels('../../model');
+}
+catch(Exception $e)
+{
+	die($e->getMessage());	
+}
+	
 
 ?>

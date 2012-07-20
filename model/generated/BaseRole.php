@@ -43,6 +43,6 @@ abstract class BaseRole extends Doctrine_Record
         parent::setUp();
         $this->hasMany('User', array(
              'local' => 'id',
-             'foreign' => 'role_id'));
+             'foreign' => 'roleid'));
     }
 }

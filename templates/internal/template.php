@@ -11,7 +11,7 @@
 <!-- end header -->
 <!-- start content -->
 
-<div id="content">
+<div class="content">
 <?php
 	require_once($view);
 ?>

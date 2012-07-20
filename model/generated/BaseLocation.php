@@ -43,6 +43,6 @@ abstract class BaseLocation extends Doctrine_Record
         parent::setUp();
         $this->hasMany('User', array(
              'local' => 'id',
-             'foreign' => 'location_id'));
+             'foreign' => 'locationid'));
     }
 }

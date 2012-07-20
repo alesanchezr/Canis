@@ -30,10 +30,10 @@ $GLOBALS["canisSessionName"] = "ejemploDeSession";
 
 /*--------THIS ARE THE MYSQL CONECTION DEFINITIONS----------*/
 //
-$GLOBALS["dbServer"]   = "";
-$GLOBALS["dbName"]     = "";
-$GLOBALS["dbUser"]     = "";
-$GLOBALS["dbPassword"] = "";
+$GLOBALS["dbServer"]   = "localhost";
+$GLOBALS["dbName"]     = "adminsociets";
+$GLOBALS["dbUser"]     = "root";
+$GLOBALS["dbPassword"] = "root";
 
 //$GLOBALS["dbServer"]   = "localhost";
 //$GLOBALS["dbName"]     = "ivoted";

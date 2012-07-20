@@ -7,6 +7,7 @@
 						success: function()
 						{
 							$("#standardError").show();
+							$("#alert-message").show().fadeOut(3000);
 						}
 			});
 

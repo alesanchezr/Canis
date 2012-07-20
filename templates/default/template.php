@@ -10,7 +10,7 @@
 	require_once($root.'header.php'); ?>
 <!-- end header -->
 <!-- start content -->
-<div id="default-content">
+<div class="container">
 <?php
 	require_once($view);
 ?>

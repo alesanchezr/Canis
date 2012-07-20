@@ -51,7 +51,7 @@ abstract class BaseUser extends Doctrine_Record
              'autoincrement' => false,
              'length' => '205',
              ));
-        $this->hasColumn('location_id', 'integer', 4, array(
+        $this->hasColumn('locationid', 'integer', 4, array(
              'type' => 'integer',
              'fixed' => 0,
              'unsigned' => false,
@@ -61,7 +61,7 @@ abstract class BaseUser extends Doctrine_Record
              'autoincrement' => false,
              'length' => '4',
              ));
-        $this->hasColumn('role_id', 'integer', 4, array(
+        $this->hasColumn('roleid', 'integer', 4, array(
              'type' => 'integer',
              'fixed' => 0,
              'unsigned' => false,
@@ -96,11 +96,11 @@ abstract class BaseUser extends Doctrine_Record
     {
         parent::setUp();
         $this->hasOne('Location', array(
-             'local' => 'location_id',
+             'local' => 'locationid',
              'foreign' => 'id'));
 
         $this->hasOne('Role', array(
-             'local' => 'role_id',
+             'local' => 'roleid',
              'foreign' => 'id'));
     }
 }
